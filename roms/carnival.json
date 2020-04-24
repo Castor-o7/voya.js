@@ -54,7 +54,7 @@
     "dropSuccess": "you dropped ",
     "dropError": "you dont have ",
     "exchangeSuccess": "in exchange, you recieve ",
-    "welcomeText": "-----------------------------\n  | welcome to the carnival!! | \n ----------------------------- \n\n there are lots of fun things here\n enjoy yourself.we demand it."
+    "welcomeText": "-----------------------------\n  | welcome to the carnival!! | \n ----------------------------- \n\n there are lots of fun things here\n enjoy yourself. or not."
   },
   "defaults": {
     "place": {
@@ -68,49 +68,145 @@
       }
     }
   },
-  "places": {
-    "parkingLot": {
-      "name": "parking lot",
-      "ahead": "ticketEntrance",
-      "messages": {
-        "newText": "yikes. is that a knife over there?"
-      },
-      "objects": {
-        "knife": {
-          "quantity": 1,
-          "inspectText": "Sharp! Careful sport."
+  "items":[
+    {
+      "id": "knife", 
+      "name": "knife",
+      "useText":[
+        {
+          "target": "default",
+          "text": "That's not a great idea."
+        },
+        {
+          "target": "none",
+          "text": "Yup, it's a knife. Careful..."
+        }
+      ]
+    },
+    {
+      "id": "dollar",
+      "name": "dollar bill",
+      "useText":[
+        {
+          "target": "default",
+          "text": "This has got to be worth something, but who's selling anything out here?"
+        },
+        {
+          "target": "none",
+          "text": "I've got a dollar, I've got a dollar..."
+        },
+        {
+          "target": "ticket-entrance",
+          "text": "You receive a ticket. Hold onto it ok?",
+          "reward": "ticket"
+        },
+      ]
+    },
+    {
+      "id": "ticket", 
+      "name": "ticket",
+      "useText":[
+        {
+          "target": "default",
+          "text": "Nothing happens"
+        },
+        {
+          "target": "none",
+          "text": "This peculiar indigo ticket has some strange characters on it. They look like they might be cyrillic. Staring at it gives you more questions than answers... "
+        }
+      ]
+    },
+  ],
+
+   "newPlaces": [
+      {
+        "id": "parking-lot",  
+        "name": "Parking Lot", 
+        "connections": [
+          {
+            "link": "winding rope line",
+            "place": "ticket-entrance", 
+          }
+        ],
+        "items": [ 
+          {
+            "item": "knife",
+            "quantity": 1
+          },
+          {
+            "item": "dollar",
+            "quantity": 1
+          }
+        ],
+        "text":[
+          "yikes, is that a knife over there?"
+        ],
+        "settings": {
+          "lit": true,
+          "isGame": false,
+          "isLocked": false,
+          "passiveKey": "nickiminjaj"
         }
       },
-      "settings": {}
-    },
-    "ticketEntrance": {
-      "name": "ticket entrance",
-      "ahead": "mainSquare",
-      "behind": "parkingLot",
-      "messages": {
-        "newText": "god this place is run down..."
-      },
-      "exchanges": {
-        "dollar": "ticket",
-        "coin": "token"
-      },
-      "objects": {}
-    },
-    "mainSquare": {
-      "name": "main square",
-      "behind": "ticketEntrance",
-      "ahead": "ferrisWheel",
-      "left": "lawn",
-      "right": "arcade",
+    
+      {
+      "id": "ticket-entrance",  
+      "name": "Ticket Entrance", 
+      "connections": [
+        {
+          "link": "winding rope line",
+          "place": "parking-lot" 
+        },
+        {
+          "link": "A Festive Gate",
+          "place": "main-square" 
+        }
+      ],
+      "text":[
+        "The Ticket Entrance may have been a glorious gateway once upon a time; but now it's dilapidated and run-down. Surprisingly, a ticket machine next to the turnstiles seems to be functioning; it has a slot that takes money." 
+      ],
       "settings": {
-        "isLocked": true,
-        "leaveUnlocked": true,
-        "key": "ticket"
+        "lit": true,
+        "isGame": false,
+        "isLocked": false,
+        "passiveKey": "dollarbill"
+      }
+    },
+
+      {
+        "id": "main-square",  
+        "name": "Main Square", 
+        "connections": [
+          {
+            "link": "A Festive Gate",
+            "place": "ticket-entrance" 
+          },
+          {
+            "link": "A brick road",
+            "place": "ferris-wheel" 
+          },
+          {
+            "link": "A brick road",
+            "place": "lawn" 
+          },
+          {
+            "link": "A brick road",
+            "place": "arcade" 
+          }
+        ],
+        "text":[
+          "This area seems to be the main square. A brick walkway leads to a fountain in the center of the plaza, then the walkway splits towards the rides. All around are manicured hedges and bright statues of mascots, it does little to excite you for the carnival. Looking around gives you an unsettling feeling, best to press on." 
+        ],
+        "settings": {
+          "lit": true,
+          "isGame": false,
+          "isLocked": false,
+          "passiveKey": ""
+        }
       },
       "messages": {
-        "locked": "a ticket is required for entry.\n",
-        "successEntryGranted": "you use your ticket to enter.\n",
-        "unlock": "thanks for visiting the carnival - enjoy your stay"
+        "observe": "The statues seem to all be staring at you except for one. The odd one out is a dog pointed like an arrow to the ferris wheel.",
+ 
       }
     },
     "ferrisWheel": {
@@ -120,8 +216,44 @@
       "settings": {
         "isRide": true
       },
-      "rideText": "wow the view is great from up here. make sure you don't drop anything..."
+      "rideText": "wow the view is great from up here. make sure you don't drop anything... wait, is that a staircase?"
     },
+
+    {
+      "id": "main-square",  
+      "name": "Main Square", 
+      "connections": [
+        {
+          "link": "A Festive Gate",
+          "place": "ticket-entrance" 
+        },
+        {
+          "link": "A brick road",
+          "place": "ferris-wheel" 
+        },
+        {
+          "link": "A brick road",
+          "place": "lawn" 
+        },
+        {
+          "link": "A brick road",
+          "place": "arcade" 
+        }
+      ],
+      "text":[
+        "This area seems to be the main square. A brick walkway leads to a fountain in the center of the plaza, then the walkway splits towards the rides. All around are manicured hedges and bright statues of mascots, it does little to excite you for the carnival. Looking around gives you an unsettling feeling, best to press on." 
+      ],
+      "settings": {
+        "lit": true,
+        "isGame": false,
+        "isLocked": false,
+        "passiveKey": ""
+      }
+    },
+    "messages": {
+      "observe": "The statues seem to all be staring at you except for one. The odd one out is a dog pointed like an arrow to the ferris wheel.",
+
+    }
     "lawn": {
       "name": "lawn",
       "behind": "mainSquare",
@@ -223,6 +355,7 @@
     "entryHall": {
       "name": "entrance hall",
       "ahead": "anteChamber",
+      "left": "wishingWell",
       "settings": {
         "isLit": false
       },
@@ -234,6 +367,17 @@
       "ahead": "mainHall",
       "settings": {
         "isLit": false
+      }
+    },
+    "wishingWell": {
+      "name": "wishingWell",
+      "behind": "entryHall",
+      "settings": {
+        "isLit": true,
+      "usecointext": "The glistening pool shimmers and an image fills your mind, the number 6 and a room filled with curious books",
+        "text": [
+          "There's a shallow pool filled with glistening water, a warm glow illuminates the scene from somewhere unknown. There are some coins that line the bottom of the pool."
+        ]
       }
     },
     "mainHall": {
@@ -363,4 +507,5 @@
       }
     }
   }
+]
 }
